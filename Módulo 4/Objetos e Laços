@@ -1,0 +1,95 @@
+// 1. Defina um array de objetos para armazenar os livros no estoque
+let estoque = [];
+
+// 2. Crie funções para gerenciar o estoque:
+
+// Adiciona um novo livro ao estoque
+function adicionarLivro(titulo, autor, quantidade) {
+    // 3. Usa condicionais para verificar se o livro já existe
+    let livroExistente = false;
+
+    // 4. Usa laços de repetição para iterar sobre o array
+    for (let i = 0; i < estoque.length; i++) {
+        if (estoque[i].titulo.toLowerCase() === titulo.toLowerCase()) {
+            livroExistente = true;
+            break;
+        }
+    }
+
+    if (livroExistente) {
+        console.log(`Erro: O livro "${titulo}" já está cadastrado no estoque.`);
+    } else {
+        // Cada livro é um objeto com titulo, autor e quantidade
+        let novoLivro = {
+            titulo: titulo,
+            autor: autor,
+            quantidade: quantidade
+        };
+        estoque.push(novoLivro);
+        console.log(`Sucesso: Livro "${titulo}" adicionado com sucesso!`);
+    }
+}
+
+// Remove um livro do estoque pelo título
+function removerLivro(titulo) {
+    let indiceLivro = -1;
+
+    for (let i = 0; i < estoque.length; i++) {
+        if (estoque[i].titulo.toLowerCase() === titulo.toLowerCase()) {
+            indiceLivro = i;
+            break;
+        }
+    }
+
+    // 3. Usa condicionais para verificar se o livro existe antes de removê-lo
+    if (indiceLivro !== -1) {
+        estoque.splice(indiceLivro, 1);
+        console.log(`Sucesso: Livro "${titulo}" foi removido do estoque.`);
+    } else {
+        console.log(`Erro: O livro "${titulo}" não foi encontrado para remoção.`);
+    }
+}
+
+// Atualiza a quantidade de um livro no estoque
+function atualizarQuantidade(titulo, novaQuantidade) {
+    let livroEncontrado = false;
+
+    for (let i = 0; i < estoque.length; i++) {
+        if (estoque[i].titulo.toLowerCase() === titulo.toLowerCase()) {
+            estoque[i].quantidade = novaQuantidade;
+            livroEncontrado = true;
+            console.log(`Sucesso: Quantidade do livro "${titulo}" atualizada para ${novaQuantidade}.`);
+            break;
+        }
+    }
+
+    if (!livroEncontrado) {
+        console.log(`Erro: O livro "${titulo}" não foi encontrado.`);
+    }
+}
+
+// Lista todos os livros no estoque
+function listarLivros() {
+    if (estoque.length === 0) {
+        console.log("O estoque está vazio.");
+        return;
+    }
+
+    console.log("--- LIVROS DISPONÍVEIS NO ESTOQUE ---");
+    for (let i = 0; i < estoque.length; i++) {
+        console.log(`Título: ${estoque[i].titulo} | Autor: ${estoque[i].autor} | Quantidade: ${estoque[i].quantidade}`);
+    }
+}
+
+// --- TESTANDO O SISTEMA ---
+adicionarLivro("O Hobbit", "J.R.R. Tolkien", 5);
+adicionarLivro("Dom Casmurro", "Machado de Assis", 3);
+adicionarLivro("O Hobbit", "J.R.R. Tolkien", 2); // Deve dar erro de livro já existente
+
+listarLivros(); // Lista os dois livros adicionados
+
+atualizarQuantidade("O Hobbit", 10); // Atualiza para 10
+
+removerLivro("Dom Casmurro"); // Remove Dom Casmurro
+
+listarLivros(); // Lista apenas O Hobbit com quantidade 10
