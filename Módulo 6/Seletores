@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang = "pt-BR">
+<head>
+    <meta charset = "UTF-8">
+    <meta name=" viewport" content= "width=device=width, inicial-scale=1.0">
+    <title>Lista de Tarefas</title>
+    <link rel= "stylesheet" href= "style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h2>Minha Lista de Tarefas </h2>
+
+        <!--campo de texto e botão de adicionar-->
+        <div class="input-group">
+            <input type="text" id="taskInput" placeholder="Digite uma nova tarefa...">
+            <button id="addTaskBtn">Adicionar</button>
+        </div>
+
+        <!--Container onde a sequencia de checkboxes e tarefas será renderizada-->
+        <ul id="taskList"></ul>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
