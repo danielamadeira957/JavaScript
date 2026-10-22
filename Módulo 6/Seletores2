@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Curtidas</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; }
+        .input-group { margin-bottom: 10px; }
+        #resultado { font-weight: bold; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <h2>Sistema de Curtidas</h2>
+    
+    <div class="input-group">
+        <input type="text" id="nomeInput" placeholder="Digite um nome">
+        <button id="btnCurtir">Curtir</button>
+    </div>
+
+    <p id="resultado">Ninguém curtiu</p>
+
+    <script>
+        // Array para armazenar os nomes das pessoas que curtiram
+        const curtidas = [];
+
+        // Elementos do DOM
+        const nomeInput = document.getElementById('nomeInput');
+        const btnCurtir = document.getElementById('btnCurtir');
+        const resultado = document.getElementById('resultado');
+
+        // Evento de clique no botão
+        btnCurtir.addEventListener('click', () => {
+            const nome = nomeInput.value.trim();
+
+            // Valida se o campo não está vazio
+            if (nome === "") {
+                alert("Por favor, digite um nome válido.");
+                return;
+            }
+
+            // Verifica se o nome já foi adicionado (ignora maiúsculas/minúsculas)
+            const nomeExiste = curtidas.some(n => n.toLowerCase() === nome.toLowerCase());
+
+            if (!nomeExiste) {
+                curtidas.push(nome);
+            } else {
+                alert("Este nome já curtiu!");
+            }
+
+            // Limpa o campo de entrada
+            nomeInput.value = "";
+
+            // Atualiza o texto do parágrafo com base nas regras fornecidas
+            const total = curtidas.length;
+
+            if (total === 1) {
+                resultado.textContent = `${curtidas[0]} curtiu`;
+            } else if (total === 2) {
+                resultado.textContent = `${curtidas[0]} e ${curtidas[1]} curtiram`;
+            } else if (total >= 3) {
+                resultado.textContent = `${curtidas[0]}, ${curtidas[1]} e mais ${total - 2} pessoas curtiram`;
+            } else {
+                resultado.textContent = "Ninguém curtiu";
+            }
+        });
+    </script>
+
+</body>
+</html>
