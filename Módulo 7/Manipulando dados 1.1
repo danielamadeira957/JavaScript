@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Curtidas</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; }
+        .input-group { margin-bottom: 10px; }
+        #resultado { font-weight: bold; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <h2>Sistema de Curtidas</h2>
+    
+    <div class="input-group">
+        <input type="text" id="nomeInput" placeholder="Digite um nome...">
+        <button id="btnCurtir">curtir</button>
+        <!-- Adicionado o botão Limpar exigido pela nova questão -->
+        <button id="btnLimpar">Limpar</button>
+    </div>
+
+    <p id="resultado">Ninguém curtiu</p>
+
+     <script>
+        // Elementos do DOM
+        const nomeInput = document.getElementById('nomeInput');
+        const btnCurtir = document.getElementById('btnCurtir');
+        const btnLimpar = document.getElementById('btnLimpar'); // Captura o novo botão
+        const resultado = document.getElementById('resultado');
+
+        // REQUISITO NOVO: O array agora inicia buscando o que já está salvo no localStorage.
+        // Se não houver nada salvo, ele começa vazio [].
+        // Mudamos de 'const' para 'let' para permitir limpar a lista depois.
+        let curtidas = JSON.parse(localStorage.getItem('listaCurtidas')) || [];
+
+        // Criamos esta função para atualizar o texto do parágrafo sempre que a lista mudar
+        // (tanto ao clicar em curtir, limpar ou ao recarregar a página)
+        function atualizarTexto() {
+            const tam = curtidas.length;
+
+             if (tam === 0) {
+                resultado.textContent = "Ninguém curtiu";
+            } else if (tam === 1) {
+                resultado.textContent = `${curtidas[0]} curtiu`;
+            } else if (tam === 2) {
+                resultado.textContent = `${curtidas[0]} e ${curtidas[1]} curtiram`;
+            } else {
+                resultado.textContent = `${curtidas[0]}, ${curtidas[1]} e mais ${tam - 2} pessoas curtiram`;
+            }
+        }
+
+        // Evento de clique no botão Curtir (Seu código original expandido)
+        btnCurtir.addEventListener('click', () => {
+            const nome = nomeInput.value.trim();
+
+             // Valida se o campo não está vazio (Igual ao seu código)
+            if (nome === "") {
+                alert("Por favor, digite um nome.");
+                return;
+            }
+
+            // REQUISITO NOVO: Verifica se o nome já está no array antes de adicionar
+            if (curtidas.includes(nome)) {
+                alert("Este nome já está na lista!");
+                nomeInput.value = "";
+                return;
+            }
+
+            // Adiciona o nome ao array
+            curtidas.push(nome);
+
+            // REQUISITO NOVO: Salva a lista atualizada no localStorage (convertida em texto)
+            localStorage.setItem('listaCurtidas', JSON.stringify(curtidas));
+
+            // Atualiza a tela e limpa o input
+            atualizarTexto();
+            nomeInput.value = "";
+        });
+
+        // REQUISITO NOVO: Evento de clique no botão Limpar
+        btnLimpar.addEventListener('click', () => {
+            curtidas = []; // Limpa o array na memória do código
+            localStorage.removeItem('listaCurtidas'); // Remove a lista do armazenamento do navegador
+            atualizarTexto(); // Atualiza a tela para voltar a dizer "Ninguém curtiu"
+        });
+
+         // Executa esta função assim que a página carrega para resgatar os nomes salvos antes
+        atualizarTexto();
+    </script>
+</body>
+</html>
