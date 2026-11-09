@@ -1,0 +1,97 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+    margin: 0;
+}
+
+.container {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 450px;
+    max-width: 90%;
+}
+
+h2 {
+    margin-top: 0;
+    color: #333;
+    font-size: 22px;
+}
+
+.busca-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.lista-usuarios {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.usuario-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    border-bottom: 1px solid #eef0f2;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.usuario-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.usuario-link:hover {
+    text-decoration: underline;
+}
+
+/* Mensagens de status e erro */
+.erro-msg {
+    color: #dc3545;
+    font-weight: 500;
+    text-align: center;
+}
+
+.status-msg {
+    color: #6c757d;
+    text-align: center;
+}
